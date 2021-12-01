@@ -58,7 +58,7 @@ public class Simulation {
             }
             else if (state) {
                 SimpleDateFormat formattedDate = new SimpleDateFormat("mm:ss:SSS");
-                this.logger.log("Result : " + this.numberToGuess + "\nTime to play: " + formattedDate.format(new Date(duration)));
+                this.logger.log("result=" + this.numberToGuess + " time_to_play=" + formattedDate.format(new Date(duration)));
                 break;
             }
         }
