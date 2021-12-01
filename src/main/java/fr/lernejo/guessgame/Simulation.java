@@ -3,15 +3,18 @@ package fr.lernejo.guessgame;
 import fr.lernejo.logger.Logger;
 import fr.lernejo.logger.LoggerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Simulation {
 
     private final Logger logger = LoggerFactory.getLogger("simulation");
-    private final HumanPlayer player;  //TODO add variable type
+    private final Player player;  //TODO add variable type
     private long numberToGuess; //TODO add variable type
 
     public Simulation(Player player) {
         //TODO implement me
-        this.player = (HumanPlayer) player;
+        this.player = player;
     }
 
     public void initialize(long numberToGuess) {
@@ -40,14 +43,22 @@ public class Simulation {
         return false;
     }
 
-    public void loopUntilPlayerSucceed() {
+    public void loopUntilPlayerSucceed(long maxIteration) {
         //TODO implement me
         boolean state = false;
+        long t_begin = System.currentTimeMillis(), duration;
 
         while (state == false) {
             state = nextRound();
+            duration = System.currentTimeMillis() - t_begin;
 
-            if (state) {
+            if (duration >= maxIteration) {
+                this.logger.log("Maximum iteration reached");
+                break;
+            }
+            else if (state) {
+                SimpleDateFormat formattedDate = new SimpleDateFormat("mm:ss:SSS");
+                this.logger.log("Result : " + this.numberToGuess + "\nTime to play: " + formattedDate.format(new Date(duration)));
                 break;
             }
         }
